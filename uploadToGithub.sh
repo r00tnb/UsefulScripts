@@ -12,7 +12,7 @@ elif [[ `ls -l $filepath | awk '{print $5}'` -gt 1024*1024*1024 ]];then
     echo -e "The file: $filepath\n\t size of file over 1GB."
     exit
 else
-    echo "Good file!"
+    echo "Good file!File size: "`ls -lh $filepath | awk '{print $5}'`
 fi
 
 # $2 is git repository url
