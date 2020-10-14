@@ -41,9 +41,11 @@ git remote add origin $repo
 git config --local credential.helper cache
 git config --local http.postBuffer 1073741824
 
-echo "upload a file:$filepath" > uploadfileinfo
-git add uploadfileinfo
-git commit -m "add uploadfileinfo"
+echo "#!/bin/bash" > resume.sh
+echo "# upload a file:$filepath" >> resume.sh
+echo "" >> resume.sh
+git add resume.sh
+git commit -m "add resume.sh"
 git push -f origin master
 
 # split file
@@ -52,6 +54,7 @@ uploadsize="80m"
 minimizesize="10m"
 
 split -b $uploadsize $filepath myfile
+
 for file in myfile*
 do
     mkdir "dir_"$file
@@ -64,4 +67,5 @@ do
     git push origin master
     cd ..
 done
-
+echo "cat dir_*/* > $filepath" >> resume.sh
+chmod +x resume.sh
