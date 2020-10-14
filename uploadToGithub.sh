@@ -69,3 +69,6 @@ do
 done
 echo "cat dir_*/* > $filepath" >> resume.sh
 chmod +x resume.sh
+git add resume.h
+git commit -m "edit resume.h"
+git push origin master
