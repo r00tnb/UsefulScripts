@@ -41,11 +41,19 @@ git remote add origin $repo
 git config --local credential.helper cache
 git config --local http.postBuffer 1073741824
 
-echo "#!/bin/bash" > resume.sh
-echo "# upload a file:$filepath" >> resume.sh
-echo "" >> resume.sh
-git add resume.sh
-git commit -m "add resume.sh"
+cat>resume.sh<<EOF
+#!/bin/bash
+# upload a file:$filepath
+
+cat dir_*/* > $filepath
+EOF
+cat>resume.bat<<EOF
+rem upload a file:$filepath
+
+copy dir_*/* $filepath /b
+EOF
+git add resume.sh resume.bat
+git commit -m "add resume.sh and resume.bat"
 git push -f origin master
 
 # split file
@@ -67,8 +75,3 @@ do
     git push origin master
     cd ..
 done
-echo "cat dir_*/* > $filepath" >> resume.sh
-chmod +x resume.sh
-git add resume.sh
-git commit -m "edit resume.sh"
-git push origin master
