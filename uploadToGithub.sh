@@ -50,7 +50,7 @@ EOF
 cat>resume.bat<<EOF
 rem upload a file:$filepath
 
-copy dir_*/* $filepath /b
+copy /b dir_*\* $filepath
 EOF
 git add resume.sh resume.bat
 git commit -m "add resume.sh and resume.bat"
